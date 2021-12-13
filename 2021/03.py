@@ -1,4 +1,4 @@
-with open("input/3", "r") as f:
+with open("input/03", "r") as f:
     indata = f.read().split('\n')
 
 ones = [0] * len(indata[0])

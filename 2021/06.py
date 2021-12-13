@@ -1,6 +1,6 @@
 from copy import deepcopy
 
-with open("input/6", "r") as f:
+with open("input/06", "r") as f:
     indata = [int(x) for x in f.read().split(',')]
 
 

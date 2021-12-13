@@ -1,4 +1,4 @@
-with open("input/8", "r") as f:
+with open("input/08", "r") as f:
     indata = f.read().split('\n')
 
 def part1():

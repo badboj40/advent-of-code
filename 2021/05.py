@@ -1,6 +1,6 @@
 import re
 
-with open("input/5", "r") as f:
+with open("input/05", "r") as f:
     indata = f.read().split('\n')
 
 

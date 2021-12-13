@@ -1,4 +1,4 @@
-with open("input/2", "r") as f:
+with open("input/02", "r") as f:
     indata = [x.split() for x in f.read().split('\n')]
 
 pos1 = [0, 0] # horizontal, depth

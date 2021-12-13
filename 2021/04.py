@@ -1,5 +1,5 @@
 from copy import deepcopy
-with open("input/4", "r") as f:
+with open("input/04", "r") as f:
     indata = f.read().split('\n')
 
 boards = []

@@ -1,4 +1,4 @@
-with open("input/7", "r") as f:
+with open("input/07", "r") as f:
     indata = [int(x) for x in f.read().split(',')]
 
 def part1():

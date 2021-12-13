@@ -1,5 +1,5 @@
 from copy import deepcopy
-with open("input/9", "r") as f:
+with open("input/09", "r") as f:
     indata = [[int(x) for x in row] for row in f.read().split('\n')][:-1]
 
 map_height = len(indata)
