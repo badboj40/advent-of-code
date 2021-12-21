@@ -16,9 +16,11 @@ class Paper:
             hashtags += row.count('#')
         return hashtags
 
-    def show(self, axis='', fold_index=0):
+    def __str__(self, axis='', fold_index=0):
+        string = ''
         for row in self.paper:
-            print(''.join(row))
+            string += ''.join(row) + '\n'
+        return string
 
     def fold(self, axis, fold_index):
         width = len(self.paper[0]) if axis == 'y' else fold_index
@@ -52,4 +54,4 @@ if __name__ == "__main__":
         if i == 0:
             print("part1:", paper.count_hashtags())
     print("part2:")
-    paper.show()
+    print(paper)
