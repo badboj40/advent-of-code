@@ -34,6 +34,7 @@ def part2(indata):
       result += res
   return result
 
+
 if __name__ == "__main__":
   with open("input/12", "r") as f:
     indata = json.loads(f.read())
