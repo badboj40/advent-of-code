@@ -1,8 +1,9 @@
+from aocd.models import Puzzle
 import time
 
 def parse_input():
-  with open("input/01", "r") as f:
-    indata = f.read().split('\n')
+  puzzle = Puzzle(2022, int("01"))
+  indata = puzzle.input_data.split('\n')
   return indata
 
 def part1(indata):
@@ -32,9 +33,9 @@ def part2(indata):
 
 if __name__ == "__main__":
   print() 
-  t0 = time.time()
   indata = parse_input()
-
+  t0 = time.time()
+  
   print("part1:", part1(indata))
   print("part2:", part2(indata))
 
