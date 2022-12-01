@@ -11,7 +11,7 @@ def part1(indata):
   cals = 0
   for row in indata:
     if row:
-      cals += int(cals)
+      cals += int(row)
     else:
       calories.append(cals)
       cals = 0
