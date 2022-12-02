@@ -1,10 +1,15 @@
 from aocd.models import Puzzle
+from aocd import submit
 import time
 
+YEAR = int('2022')
+DAY = int('01')
+
 def parse_input():
-  puzzle = Puzzle(2022, int("01"))
+  puzzle = Puzzle(day=DAY, year=YEAR)
   indata = puzzle.input_data.split('\n')
   return indata
+
 
 def part1(indata):
   calories = []
@@ -32,11 +37,15 @@ def part2(indata):
 
 
 if __name__ == "__main__":
-  print() 
   indata = parse_input()
   t0 = time.time()
-  
-  print("part1:", part1(indata))
-  print("part2:", part2(indata))
 
-  print("time:", time.time()-t0)
+  part1_answer = part1(indata)
+  print("\npart1:", part1(indata))
+  submit(part1_answer, part="a", day=DAY, year=YEAR)
+
+  part2_answer = part2(indata)
+  print("\npart2:", part2(indata))
+  submit(part2_answer, part="b", day=DAY, year=YEAR)
+
+  print("\ntime:", time.time()-t0)
