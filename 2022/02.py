@@ -10,14 +10,12 @@ def parse_input():
   indata = [x.split(' ') for x in puzzle.input_data.split('\n')]
   return indata
 
-rock_paper_scissors = {'A': 'rock', 'B': 'paper', 'C': 'scissors', 
-                       'X': 'rock', 'Y': 'paper', 'Z': 'scissors'}
+rock_paper_scissors = {'A':'r', 'B':'p', 'C':'s', 'X':'r', 'Y':'p', 'Z':'s'}
 
-win_over = {'rock'    : 'scissors',
-            'paper'   : 'rock', 
-            'scissors': 'paper'}
+win_over = {'r':'s', 'p':'r', 's':'p'}
+lose_to =  {'s':'r', 'r':'p', 'p':'s'}
 
-move_score = {'rock': 1, 'paper': 2, 'scissors': 3}
+move_score = {'r': 1, 'p': 2, 's': 3}
 
 def score_calc(opp, you):
   score = move_score[you]
@@ -46,9 +44,7 @@ def part2(indata):
     elif b == 'Y': # draw
       you = opp
     elif b == 'Z': # win
-      for win, lose in win_over.items():
-        if lose == opp:
-          you = win
+      you = lose_to[opp]
     score += score_calc(opp, you)
   return score
 
