@@ -4,7 +4,7 @@ import numpy as np
 import time
 
 YEAR = int('2022')
-DAY = int('03')
+DAY = int('04')
 
 def parse_input():
   puzzle = Puzzle(day=DAY, year=YEAR)
@@ -12,30 +12,27 @@ def parse_input():
   return indata
 
 
-alphabet = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
 def part1(indata):
   score = 0
   for row in indata:
-    first = row[:int(len(row)/2)]
-    second = row[int(len(row)/2):]
-    for char in first:
-      if char in second:
-        score += alphabet.find(char)
-        break
+    a, b = row.split(',')
+    a0, a1 = [int(x) for x in a.split('-')]
+    b0, b1 = [int(x) for x in b.split('-')]
+    if (a0 <= b0 and b1 <= a1) or (b0 <= a0 and a1 <= b1):
+      score += 1
+
   return score
 
 
 def part2(indata):
   score = 0
-  i = 0
-  while i < len(indata):
-    first, second, third = indata[i:i+3]
-    for char in first:
-      if char in second and char in third:
-        score += alphabet.find(char)
-        break
-    i += 3
+  for row in indata:
+    a, b = row.split(',')
+    a0, a1 = [int(x) for x in a.split('-')]
+    b0, b1 = [int(x) for x in b.split('-')]
+    if not (a1 < b0 or b1 < a0):
+      score += 1
+
   return score
 
 
@@ -44,11 +41,11 @@ if __name__ == "__main__":
   t0 = time.time()
 
   part1_answer = part1(indata)
-  print("\npart1:", part1(indata))
+  print("\npart1:", part1_answer)
   submit(part1_answer, part="a", day=DAY, year=YEAR)
 
   part2_answer = part2(indata)
-  print("\npart2:", part2(indata))
+  print("\npart2:", part2_answer)
   submit(part2_answer, part="b", day=DAY, year=YEAR)
 
   print("\ntime:", time.time()-t0)
