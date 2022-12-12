@@ -1,6 +1,7 @@
+#  5   19:12:45  84026      0   19:30:33  82139      0
+
 from aocd.models import Puzzle
 from aocd import submit
-import numpy as np
 from copy import deepcopy
 import time
 

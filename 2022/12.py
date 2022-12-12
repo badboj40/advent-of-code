@@ -2,7 +2,6 @@
 
 from aocd.models import Puzzle
 from aocd import submit
-import numpy as np
 import time
 
 YEAR = int('2022')

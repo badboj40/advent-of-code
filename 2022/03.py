@@ -1,6 +1,7 @@
+#  3   00:16:36   5895      0   00:24:51   5207      0
+
 from aocd.models import Puzzle
 from aocd import submit
-import numpy as np
 import time
 
 YEAR = int('2022')
