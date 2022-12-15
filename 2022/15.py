@@ -26,17 +26,17 @@ def merge_intervals(intervals):
 
 def solve():
   part1_answer = part2_answer = 0
-  for y in range(int(4e6+1)):
+  for y in range(4000001):
     intervals = []
     for sx, sy in sensors:
       coverage = sensors[(sx, sy)] - abs(sy - y)
       if coverage >= 0:
         intervals.append([sx-coverage, sx+coverage])
     merged = merge_intervals(intervals)
-    if y == 2e6: # part 1
-      part1_answer = sum([interval[1] - interval[0] for interval in merged])
+    if y == 2000000: # part 1
+      part1_answer = merged[0][1] - merged[0][0]
     if len(merged) > 1: # part 2
-      part2_answer = int((merged[0][1]+1) * 4e6 + y)
+      part2_answer = (merged[0][1]+1) * 4000000 + y
       break
   return part1_answer, part2_answer
 
