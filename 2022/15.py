@@ -36,7 +36,8 @@ def solve():
     if y == 2000000: # part 1
       part1_answer = merged[0][1] - merged[0][0]
     if len(merged) > 1: # part 2
-      part2_answer = (merged[0][1]+1) * 4000000 + y
+      x = merged[0][1] + 1
+      part2_answer = x * 4000000 + y
       break
   return part1_answer, part2_answer
 
