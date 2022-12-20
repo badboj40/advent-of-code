@@ -7,9 +7,7 @@ import time
 YEAR, DAY = 2022, 20
 
 puzzle = Puzzle(day=DAY, year=YEAR)
-indata = puzzle.input_data.split('\n')
 indata = [int(x) for x in puzzle.input_data.split('\n')]
-
 
 class Node:
   def __init__(self, prev, x, nxt):
@@ -17,129 +15,51 @@ class Node:
     self.x = x
     self.nxt = nxt
   
-  def __str__(self):
-    return str(self.x)
-
-
-def part1():
-  first = Node(None, indata[0], None)
-  numbers = [first]
-  for i in range(1, len(indata)):
-    num = Node(numbers[-1], indata[i], None)
-    numbers[-1].nxt = num
-    numbers.append(num)
-  numbers[-1].nxt = numbers[0]
-  numbers[0].prev = numbers[-1]
-
-  curr = first
-  row = ""
-  for _ in range(len(numbers)):
-    row += f"{str(curr.x):>2} "
-    curr = curr.nxt
-  print(f"\n{0:>2}:\t{row}")
-
-  
-  for num in numbers:
-    steps = num.x%(len(numbers)-1)
+  def move_forward(self, steps):
     for _ in range(steps):
-      prev = num.prev
-      nxt = num.nxt
-      prev.nxt = nxt
-      nxt.prev = prev
-      num.prev = nxt
-      num.nxt = nxt.nxt
-      nxt.nxt.prev = num
-      nxt.nxt = num
-
-    # curr = num
-    # row = ""
-    # for _ in range(len(numbers)):
-    #   row += f"{str(curr.x):>2} "
-    #   curr = curr.nxt
-    # print(f"\n{num.x:>2},{steps}:\t{row}")
-  
-  curr = first
-  while curr.x != 0:
-    curr = curr.nxt
-
-  cumsum = 0
-
-  for i in range(3):
-    for i in range(1000):
-      curr = curr.nxt
-    print(f"num {1}: {curr.x}")
-    cumsum += curr.x
+      self.prev.nxt = self.nxt
+      self.nxt.prev = self.prev
+      self.prev = self.nxt
+      self.nxt = self.prev.nxt
+      self.prev.nxt = self
+      self.nxt.prev = self
 
 
-  return cumsum
-
-
-
-def part2():
-  DECRYPTION_KEY = 811589153
-  
-  first = Node(None, indata[0]*DECRYPTION_KEY, None)
-  numbers = [first]
+def parse_indata(decryption_key):
+  numbers = [Node(prev=None, x=indata[0]*decryption_key, nxt=None)]
   for i in range(1, len(indata)):
-    num = Node(numbers[-1], indata[i]*DECRYPTION_KEY, None)
+    num = Node(prev=numbers[-1], x=indata[i]*decryption_key, nxt=None)
     numbers[-1].nxt = num
     numbers.append(num)
   numbers[-1].nxt = numbers[0]
   numbers[0].prev = numbers[-1]
+  return numbers
 
-  # curr = first
-  # row = ""
-  # for _ in range(len(numbers)):
-  #   row += f"{str(curr.x//DECRYPTION_KEY):>2} "
-  #   curr = curr.nxt
-  # print(f"\nstrt:\t{row}")
 
-  
-  for _ in range(10):
+def solve(decryption_key=1, mixing_rounds=1):
+  # go through all the numbers and do the mixing
+  numbers = parse_indata(decryption_key)
+  for _ in range(mixing_rounds):
     for num in numbers:
       steps = num.x%(len(numbers)-1)
-      for _ in range(steps):
-        prev = num.prev
-        nxt = num.nxt
-        prev.nxt = nxt
-        nxt.prev = prev
-        num.prev = nxt
-        num.nxt = nxt.nxt
-        nxt.nxt.prev = num
-        nxt.nxt = num
+      num.move_forward(steps)
 
-
-  curr = first
+  # find zero
+  curr = numbers[0]
   while curr.x != 0:
     curr = curr.nxt
-  
-  # row = ""
-  # for _ in range(len(numbers)):
-  #   row += f"{str(curr.x//DECRYPTION_KEY):>2} "
-  #   curr = curr.nxt
-  # print(f"\n{num.x//DECRYPTION_KEY:>2}:\t{row}")
 
-  cumsum = 0
-
-  for i in range(3):
-    for i in range(1000):
+  # calculate result
+  result = 0
+  for _ in range(3):
+    for _ in range(1000):
       curr = curr.nxt
-    print(f"num {1}: {curr.x}")
-    cumsum += curr.x
-
-
-  return cumsum
+    result += curr.x
+  return result
 
 
 if __name__ == "__main__":
   t0 = time.time()
-
-  part1_answer = part1()
-  print("\npart1:", part1_answer)
-  # submit(part1_answer, part="a", day=DAY, year=YEAR)
-
-  part2_answer = part2()
-  print("\npart2:", part2_answer)
-  submit(part2_answer, part="b", day=DAY, year=YEAR)
-
+  submit(solve(1, 1), part="a", day=DAY, year=YEAR)
+  submit(solve(811589153, 10), part="b", day=DAY, year=YEAR)
   print("\ntime:", time.time()-t0)
