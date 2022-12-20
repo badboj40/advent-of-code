@@ -1,4 +1,9 @@
 import time
+from aocd.models import Puzzle
+YEAR, DAY = 2015, 7
+puzzle = Puzzle(day=DAY, year=YEAR)
+indata = puzzle.input_data.split('\n')
+
 
 def resolve(key, cables):
   if isinstance(key, int):
@@ -34,7 +39,7 @@ def resolve(key, cables):
   else:
     print("invalid tuple length")
 
-def part1(indata):
+def part1():
   # Init dict
   cables = dict()
   for line in indata:
@@ -53,7 +58,7 @@ def part1(indata):
 
   return cables['a']
 
-def part2(indata, part1_result):
+def part2(part1_result):
   # Init dict
   cables = dict()
   for line in indata:
@@ -76,11 +81,8 @@ def part2(indata, part1_result):
 
 if __name__ == "__main__":
   t0 = time.time()
-  with open("input/07", "r") as f:
-    indata = f.read().split('\n')
-
-  part1_result = part1(indata)
-  print("part1:", part1(indata))
-  print("part2:", part2(indata, part1_result))
+  part1_result = part1()
+  print("part1:", part1_result)
+  print("part2:", part2(part1_result))
 
   print("time:", time.time()-t0)

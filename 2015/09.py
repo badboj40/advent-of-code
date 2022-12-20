@@ -1,7 +1,13 @@
 import time
 import itertools
 
-def parse_input(indata):
+from aocd.models import Puzzle
+YEAR, DAY = 2015, 9
+puzzle = Puzzle(day=DAY, year=YEAR)
+indata = puzzle.input_data.split('\n')
+
+
+def parse_input():
   cities = []
   for row in indata:
     a = row.split(' ')[0]
@@ -51,13 +57,8 @@ def part2(graph):
 
 
 if __name__ == "__main__":
-  with open("input/09", "r") as f:
-    indata = f.read().split('\n')
-
   t0 = time.time()
-
-  graph = parse_input(indata)
-
+  graph = parse_input()
   print("part1:", part1(graph))
   print("part2:", part2(graph))
 

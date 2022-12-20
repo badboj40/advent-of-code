@@ -1,6 +1,11 @@
 # Solution took 00:09:59
 
-def part1(indata):
+from aocd.models import Puzzle
+YEAR, DAY = 2015, 2
+puzzle = Puzzle(day=DAY, year=YEAR)
+indata = puzzle.input_data.split('\n')[:-1]
+
+def part1():
     res = 0
     for row in indata:
         l, w, h = sorted([int(x) for x in row.split('x')])
@@ -8,7 +13,7 @@ def part1(indata):
     return res
 
 
-def part2(indata):
+def part2():
     res = 0
     for row in indata:
         l, w, h = sorted([int(x) for x in row.split('x')])
@@ -17,8 +22,5 @@ def part2(indata):
 
 
 if __name__ == "__main__":
-    with open("input/02", "r") as f:
-        indata = f.read().split('\n')[:-1]
-
-    print("part1:", part1(indata))
-    print("part2:", part2(indata))
+    print("part1:", part1())
+    print("part2:", part2())

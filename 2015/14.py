@@ -1,11 +1,14 @@
 import time
 
+from aocd.models import Puzzle
+from aocd import submit
+YEAR, DAY = 2015, 14
+puzzle = Puzzle(day=DAY, year=YEAR)
+indata = puzzle.input_data.split('\n')
 TRAVEL_TIME = 2503
 
 
 def parse_input():
-  with open("input/14", "r") as f:
-    indata = f.read().split('\n')
 
   reindeers = dict()
 

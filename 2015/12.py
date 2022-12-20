@@ -1,34 +1,34 @@
 import time
 import json
 
+from aocd.models import Puzzle
+YEAR, DAY = 2015, 12
+puzzle = Puzzle(day=DAY, year=YEAR)
+indata = json.loads(puzzle.input_data)
 
-def part1(indata):
-  if isinstance(indata, int):
-    return indata
-
+def part1(document):
   result = 0
-  if isinstance(indata, list):
-    for item in indata:
-      result += part1(item)
-  elif isinstance(indata, dict):
-    for key in indata.keys():
-      result += part1(indata[key])
+  if isinstance(document, int):
+    result = document
+  elif isinstance(document, list):
+    result = sum(part1(item) for item in document)
+  elif isinstance(document, dict):
+    result = sum(part1(document[key]) for key in document)
   return result
 
 
-def part2(indata):
-  if isinstance(indata, int) or indata == "red":
-    return indata
-
+def part2(document):
+  if isinstance(document, int) or document == "red":
+    return document
   result = 0
-  if isinstance(indata, list):
-    for item in indata:
+  if isinstance(document, list):
+    for item in document:
       res = part2(item)
       if isinstance(res, int):
         result += res
-  elif isinstance(indata, dict):
-    for key in indata.keys():
-      res = part2(indata[key])
+  elif isinstance(document, dict):
+    for key in document.keys():
+      res = part2(document[key])
       if not isinstance(res, int):
         return 0
       result += res
@@ -36,12 +36,7 @@ def part2(indata):
 
 
 if __name__ == "__main__":
-  with open("input/12", "r") as f:
-    indata = json.loads(f.read())
-
   t0 = time.time()
-
   print("part1:", part1(indata))
   print("part2:", part2(indata))
-
   print("time:", time.time()-t0)

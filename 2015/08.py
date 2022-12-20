@@ -1,13 +1,19 @@
 import time
 
-def part1(indata):
+from aocd.models import Puzzle
+YEAR, DAY = 2015, 8
+puzzle = Puzzle(day=DAY, year=YEAR)
+indata = puzzle.input_data.split('\n')
+
+
+def part1():
   result = 0
   for row in indata:
     escaped_string = row.encode().decode('unicode-escape')
     result += 2 + len(row) - len(escaped_string)
   return result
 
-def part2(indata):
+def part2():
   result = 0
   for string in indata:
     result += 2
@@ -17,12 +23,7 @@ def part2(indata):
   return result
 
 if __name__ == "__main__":
-  with open("input/08", "r") as f:
-    indata = f.read().split('\n')
-
   t0 = time.time()
-
-  print("part1:", part1(indata))
-  print("part2:", part2(indata))
-
+  print("part1:", part1())
+  print("part2:", part2())
   print("time:", time.time()-t0)

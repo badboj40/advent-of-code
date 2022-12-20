@@ -1,7 +1,12 @@
 import time
 import itertools
 
-def parse_indata(indata):
+from aocd.models import Puzzle
+YEAR, DAY = 2015, 13
+puzzle = Puzzle(day=DAY, year=YEAR)
+indata = puzzle.input_data.split('\n')
+
+def parse_indata():
   happiness_data = dict()
   for row in indata:
     l = row.split(' ')
@@ -53,14 +58,8 @@ def part2(happiness_data):
 
 
 if __name__ == "__main__":
-  print()
-  with open("input/13", "r") as f:
-    indata = f.read().split('\n')
-
   t0 = time.time()
-  happiness_data = parse_indata(indata)
-
+  happiness_data = parse_indata()
   print("part1:", part1(happiness_data))
   print("part2:", part2(happiness_data))
-
   print("time:", time.time()-t0)
