@@ -4,39 +4,19 @@ from aocd.models import Puzzle
 from aocd import submit
 import time
 
-YEAR = int('2022')
-DAY = int('06')
-
-def parse_input():
-  puzzle = Puzzle(day=DAY, year=YEAR)
-  indata = puzzle.input_data
-  return indata
+YEAR, DAY = 2022, 6
+puzzle = Puzzle(day=DAY, year=YEAR)
+indata = puzzle.input_data
 
 
-def part1(indata):
+def solve(length):
   for i in range(len(indata)):
-    if len(set(indata[i:i+4])) == 4:
-      return i+4
-  return -1
-
-
-def part2(indata):
-  for i in range(len(indata)):
-    if len(set(indata[i:i+14])) == 14:
-      return i+14
-  return -1
+    if len(set(indata[i:i+length])) == length:
+      return i+length
 
 
 if __name__ == "__main__":
-  indata = parse_input()
   t0 = time.time()
-
-  part1_answer = part1(indata)
-  print("\npart1:", part1_answer)
-  submit(part1_answer, part="a", day=DAY, year=YEAR)
-
-  part2_answer = part2(indata)
-  print("\npart2:", part2_answer)
-  submit(part2_answer, part="b", day=DAY, year=YEAR)
-
+  submit(solve(4), part="a", day=DAY, year=YEAR)
+  submit(solve(14), part="b", day=DAY, year=YEAR)
   print("\ntime:", time.time()-t0)
