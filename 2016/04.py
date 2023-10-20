@@ -21,7 +21,6 @@ def part1():
 
 
 def part2():
-    result = 0
     for room in indata:
         code, number, checksum = re.match(r"([a-z-]+)-(\d+)\[(\w+)\]", room).groups()
         new_code = ""
@@ -32,7 +31,6 @@ def part2():
                 new_code += chr((ord(c)-ord('a')+int(number))%26 + ord('a'))
         if "object" in new_code:
             return number
-    return
 
 
 if __name__ == "__main__":
