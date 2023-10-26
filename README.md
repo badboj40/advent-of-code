@@ -1,4 +1,8 @@
-# 2022 Personal stats
+# Advent of Code
+
+My solutions to the [Advent of Code](https://adventofcode.com/) puzzles.
+
+## 2022 Personal stats
 
 ```ruby
       --------Part 1--------   --------Part 2--------
