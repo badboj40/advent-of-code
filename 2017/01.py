@@ -1,6 +1,5 @@
 from aocd.models import Puzzle
 from aocd import submit
-import numpy as np
 import time
 
 directory, filename = __file__.split('/')[-2:]
