@@ -7,26 +7,16 @@ import time
 
 
 def part1(indata):
-    times = [int(x) for x in re.findall(r"\d+", indata[0])]
-    dist = [int(x) for x in re.findall(r"\d+", indata[1])]
+    times, dist = [[int(x) for x in re.findall(r"\d+", row)] for row in indata]
     res = 1
     for t, d in zip(times, dist):
-        summ = 0
-        for i in range(t + 1):
-            if i * (t - i) > d:
-                summ += 1
-        res *= summ
+        res *= sum(i * (t - i) > d for i in range(t))
     return res
 
 
 def part2(indata):
-    times = int("".join(re.findall(r"\d+", indata[0])))
-    dist = int("".join(re.findall(r"\d+", indata[1])))
-    summ = 0
-    for i in range(times + 1):
-        if i * (times - i) > dist:
-            summ += 1
-    return summ
+    t, d = [int("".join(re.findall(r"\d+", row))) for row in indata]
+    return sum(i * (t - i) > d for i in range(t))
 
 
 if __name__ == "__main__":
