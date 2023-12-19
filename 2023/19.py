@@ -3,82 +3,48 @@
 from aocd.models import Puzzle
 import numpy as np
 import re
-import time
 
 
 def parse(indata):
-    workflows = {}
+    wd, rd = indata.split("\n\n")
+    wfs = {n: w.split(",") for n, w in [x[:-1].split("{") for x in wd.split("\n")]}
     ratings = []
-    workflow_done = False
-    for row in indata:
-        if not workflow_done:
-            if row == "":
-                workflow_done = True
-                continue
-            name, workflow = row.split("{")
-            workflows[name] = workflow[:-1].split(",")
-        else:
-            rating = {}
-            for key, val in [x.split("=") for x in row[1:-1].split(",")]:
-                rating[key] = (int(val), int(val))
-            ratings.append(rating)
-    return workflows, ratings
+    for row in rd.split("\n"):
+        x, m, a, s = map(int, re.findall(r"\d+", row))
+        ratings.append({"x": (x, x), "m": (m, m), "a": (a, a), "s": (s, s)})
+    return wfs, ratings
 
 
 def get_overlap(check, rating):
-    overlap = {}
-    non_overlap = {}
-    category, value = re.split("<|>", check)
+    if not rating:
+        return {}, {}
+    category, op, val = re.findall("\w+|.", check)
+    val = int(val)
     a, b = rating[category]
-    if "<" in check:
-        if b < int(value):
-            overlap = rating
-        elif int(value) <= a:
-            non_overlap = rating
-        else:
-            overlap = rating.copy()
-            non_overlap = rating.copy()
-            overlap[category] = (a, int(value) - 1)
-            non_overlap[category] = (int(value), b)
-    elif ">" in check:
-        if a > int(value):
-            overlap = rating
-        elif int(value) >= b:
-            non_overlap = rating
-        else:
-            overlap = rating.copy()
-            non_overlap = rating.copy()
-            overlap[category] = (int(value) + 1, b)
-            non_overlap[category] = (a, int(value))
-
-    return overlap, non_overlap
+    if op == "<" and b < val or op == ">" and a > val:
+        return rating, {}
+    elif op == "<" and val <= a or op == ">" and val >= b:
+        return {}, rating
+    else:
+        overlap = (a, val - 1) if op == "<" else (val + 1, b)
+        non_overlap = (val, b) if op == "<" else (a, val)
+        return {**rating, category: overlap}, {**rating, category: non_overlap}
 
 
 def traverse(workflows, rating, key="in"):
     if key not in workflows:
         return [rating] if key == "A" and rating else []
-
     res = []
-    workflow = workflows[key]
-    for step in workflow[:-1]:
-        if not rating:
-            break
+    for step in workflows[key][:-1]:
         check, new_key = step.split(":")
-        overlap, non_overlap = get_overlap(check, rating)
+        overlap, rating = get_overlap(check, rating)
         res += traverse(workflows, overlap, new_key)
-        rating = non_overlap
-
-    if rating:
-        res += traverse(workflows, rating, workflow[-1])
-
-    return res
+    return res + traverse(workflows, rating, workflows[key][-1])
 
 
 def part1(indata):
     workflows, ratings = parse(indata)
-    valid = []
-    for rating in ratings:
-        valid += traverse(workflows, rating)
+    valid = sum((traverse(workflows, rating) for rating in ratings), [])
     return sum(sum(x[0] for x in r.values()) for r in valid)
 
 
@@ -93,5 +59,5 @@ def part2(indata):
 
 if __name__ == "__main__":
     puzzle = Puzzle(day=19, year=2023)
-    puzzle_input = puzzle.input_data.split("\n")
+    puzzle_input = puzzle.input_data
     print(f"\npart1: {part1(puzzle_input)}\npart2: {part2(puzzle_input)}")
