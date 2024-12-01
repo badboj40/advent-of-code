@@ -2,6 +2,14 @@
 
 My solutions to the [Advent of Code](https://adventofcode.com/) puzzles.
 
+## 2024 Personal stats
+
+```ruby
+      -------Part 1--------   -------Part 2--------
+Day       Time  Rank  Score       Time  Rank  Score
+  1   00:04:45  1812      0   00:08:18  2107      0
+```
+
 ## 2023 Personal stats
 
 ```ruby
