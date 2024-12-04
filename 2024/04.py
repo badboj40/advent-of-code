@@ -3,21 +3,10 @@
 from aocd.models import Puzzle
 import time
 
-directions = {
-    "N" :  (-1, 0),
-    "NE" : (-1, 1),
-    "E" :  (0, 1),
-    "SE" : (1, 1),
-    "S" :  (1, 0),
-    "SW" : (1, -1),
-    "W" :  (0, -1),
-    "NW" : (-1, -1),
-}
-
 
 def part1(y, x, G, H, W):
     s = 0
-    for dy, dx in directions.values():
+    for dy, dx in [(-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1)]:
         if not (0 <= y + 3*dy < H and 0 <= x + 3*dx < W):
             continue
         s += 'XMAS' == ''.join([G[y + i*dy][x + i*dx] for i in range(4)])
