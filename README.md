@@ -7,6 +7,7 @@ My solutions to the [Advent of Code](https://adventofcode.com/) puzzles.
 ```ruby
       -------Part 1--------   -------Part 2--------
 Day       Time  Rank  Score       Time  Rank  Score
+  9   00:13:21   863      0   02:28:43  6965      0
   8   00:16:28  1839      0   00:23:03  1663      0
   7   00:06:43   749      0   00:09:18   644      0
   6   00:10:35  1278      0   00:22:04   893      0
